@@ -18,24 +18,11 @@
       --accent-bg: #eff6ff;
       --header-bg: #f0f4ff;
 
-      --red:        #dc2626;
-      --red-bg:     #fef2f2;
-      --red-border: #fca5a5;
-
-      --yellow:        #d97706;
-      --yellow-bg:     #fffbeb;
-      --yellow-border: #fcd34d;
-
-      --green:        #16a34a;
-      --green-bg:     #f0fdf4;
-      --green-border: #86efac;
-
-      --grey:        #6b7280;
-      --grey-bg:     #f9fafb;
-      --grey-border: #d1d5db;
-
-      --passed:     #9ca3af;
-      --passed-bg:  #f3f4f6;
+      --red:        #dc2626; --red-bg:     #fef2f2; --red-border: #fca5a5;
+      --yellow:     #d97706; --yellow-bg:  #fffbeb; --yellow-border: #fcd34d;
+      --green:      #16a34a; --green-bg:   #f0fdf4; --green-border: #86efac;
+      --grey:       #6b7280; --grey-bg:    #f9fafb; --grey-border: #d1d5db;
+      --passed:     #9ca3af; --passed-bg:  #f3f4f6;
     }
 
     body {
@@ -55,16 +42,8 @@
       align-items: center;
       gap: 12px;
     }
-    header h1 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-    header .sub {
-      color: var(--muted);
-      font-size: 0.82rem;
-      margin-left: 4px;
-    }
+    header h1 { font-size: 1.15rem; font-weight: 700; }
+    header .sub { color: var(--muted); font-size: 0.82rem; margin-left: 4px; }
 
     /* ── Toolbar ─────────────────────────────────────────── */
     .toolbar {
@@ -78,170 +57,176 @@
     }
     .toolbar label { color: var(--muted); font-size: 0.78rem; margin-right: 2px; }
     .btn-filter {
-      background: var(--bg);
-      border: 1px solid var(--border2);
-      color: var(--muted);
-      padding: 4px 12px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.8rem;
+      background: var(--bg); border: 1px solid var(--border2); color: var(--muted);
+      padding: 4px 12px; border-radius: 20px; cursor: pointer; font-size: 0.8rem;
       transition: all .12s;
     }
     .btn-filter:hover  { border-color: var(--accent); color: var(--accent); }
     .btn-filter.active { background: var(--accent); border-color: var(--accent); color: #fff; }
     .spacer { flex: 1; }
     .search-box {
-      border: 1px solid var(--border2);
-      border-radius: 6px;
-      padding: 4px 10px;
-      font-size: 0.82rem;
-      width: 180px;
-      outline: none;
+      border: 1px solid var(--border2); border-radius: 6px;
+      padding: 4px 10px; font-size: 0.82rem; width: 180px; outline: none;
     }
     .search-box:focus { border-color: var(--accent); }
-
-    /* ── Table wrapper ───────────────────────────────────── */
-    .table-wrap {
-      padding: 20px 28px;
-      overflow-x: auto;
+    .btn-add {
+      background: var(--accent); color: #fff; border: none;
+      padding: 5px 14px; border-radius: 6px; cursor: pointer; font-size: 0.82rem;
+      font-weight: 600; transition: opacity .12s;
     }
+    .btn-add:hover { opacity: .85; }
 
+    /* ── Table ───────────────────────────────────────────── */
+    .table-wrap { padding: 20px 28px; overflow-x: auto; }
     table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
+      width: 100%; border-collapse: collapse; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
       box-shadow: 0 1px 4px rgba(0,0,0,.06);
     }
-
-    /* ── Head ────────────────────────────────────────────── */
     thead tr { background: var(--header-bg); }
     th {
-      padding: 10px 14px;
-      text-align: left;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .04em;
-      border-bottom: 1px solid var(--border);
-      white-space: nowrap;
-      cursor: pointer;
-      user-select: none;
-      position: relative;
+      padding: 10px 14px; text-align: left; font-size: 0.75rem; font-weight: 600;
+      color: var(--muted); text-transform: uppercase; letter-spacing: .04em;
+      border-bottom: 1px solid var(--border); white-space: nowrap;
+      cursor: pointer; user-select: none;
     }
     th:hover { color: var(--accent); }
     th.sorted { color: var(--accent); }
-    th .sort-icon { margin-left: 4px; opacity: .5; }
+    .sort-icon { margin-left: 3px; opacity: .5; }
     th.sorted .sort-icon { opacity: 1; }
 
-    /* ── Body rows ───────────────────────────────────────── */
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background .1s;
-    }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: var(--accent-bg); }
+    td { padding: 9px 14px; vertical-align: middle; font-size: 0.84rem; }
 
-    td {
-      padding: 10px 14px;
-      vertical-align: middle;
-      font-size: 0.84rem;
-    }
-
-    /* Conference name cell */
+    /* Name */
     .conf-name { font-weight: 700; font-size: 0.92rem; }
     .conf-year { color: var(--muted); font-weight: 400; margin-left: 3px; }
 
-    /* Deadline cell */
-    .deadline-cell { white-space: nowrap; }
+    /* Deadline badge */
     .badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      margin-left: 6px;
-      white-space: nowrap;
+      display: inline-block; padding: 2px 8px; border-radius: 12px;
+      font-size: 0.72rem; font-weight: 600; margin-left: 6px; white-space: nowrap;
     }
     .badge.red    { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-border); }
     .badge.yellow { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
     .badge.green  { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-border); }
     .badge.grey   { background: var(--grey-bg);   color: var(--grey);   border: 1px solid var(--grey-border); }
-    .badge.passed { background: var(--passed-bg); color: var(--passed); border: 1px solid var(--grey-border); font-style: italic; }
+    .badge.passed { background: var(--passed-bg); color: var(--passed); border: 1px solid var(--grey-border); }
 
-    .deadline-date { color: var(--text); }
-    .deadline-date.red    { color: var(--red);    font-weight: 600; }
-    .deadline-date.yellow { color: var(--yellow); font-weight: 600; }
-    .deadline-date.green  { color: var(--green); }
-    .deadline-date.passed { color: var(--passed); }
-    .deadline-date.tbd    { color: var(--muted); font-style: italic; }
+    .dl-date { color: var(--text); }
+    .dl-date.red    { color: var(--red);    font-weight: 600; }
+    .dl-date.yellow { color: var(--yellow); font-weight: 600; }
+    .dl-date.green  { color: var(--green); }
+    .dl-date.passed { color: var(--passed); }
+    .dl-date.tbd    { color: var(--muted); font-style: italic; }
+    .lb-line { color: var(--muted); font-size: 0.78rem; margin-top: 2px; }
 
-    /* Dates cell */
-    .date-range { white-space: nowrap; }
+    /* Location */
+    .loc-country { font-weight: 600; }
+    .loc-city    { color: var(--muted); font-size: 0.8rem; }
+    .loc-venue   { color: var(--muted); font-size: 0.76rem; font-style: italic; }
 
-    /* Location cell */
-    .location-country { font-weight: 600; }
-    .location-city    { color: var(--muted); font-size: 0.8rem; }
-    .location-venue   { color: var(--muted); font-size: 0.76rem; font-style: italic; }
+    /* Edit button */
+    .btn-edit {
+      background: none; border: 1px solid var(--border2); color: var(--muted);
+      padding: 3px 8px; border-radius: 5px; cursor: pointer; font-size: 0.76rem;
+      transition: all .12s;
+    }
+    .btn-edit:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+    .btn-del {
+      background: none; border: 1px solid transparent; color: var(--muted);
+      padding: 3px 6px; border-radius: 5px; cursor: pointer; font-size: 0.76rem;
+      transition: all .12s; margin-left: 2px;
+    }
+    .btn-del:hover { border-color: var(--red-border); color: var(--red); background: var(--red-bg); }
 
-    /* Links cell */
     .link-btn {
-      display: inline-block;
-      padding: 3px 8px;
-      border: 1px solid var(--border2);
-      border-radius: 5px;
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 0.76rem;
-      margin-right: 4px;
-      white-space: nowrap;
-      transition: background .1s;
+      display: inline-block; padding: 3px 8px; border: 1px solid var(--border2);
+      border-radius: 5px; color: var(--accent); text-decoration: none;
+      font-size: 0.76rem; margin-right: 4px; transition: background .1s;
     }
     .link-btn:hover { background: var(--accent-bg); }
 
-    /* LB deadline in secondary style */
-    .lb-date { color: var(--muted); font-size: 0.78rem; margin-top: 2px; }
-
-    /* ── Empty state ─────────────────────────────────────── */
-    .empty-row td {
-      text-align: center;
-      color: var(--muted);
-      padding: 48px;
-      font-size: 0.9rem;
-    }
-
-    /* ── Footer ──────────────────────────────────────────── */
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: var(--muted);
-      font-size: 0.76rem;
-    }
+    /* ── Empty ───────────────────────────────────────────── */
+    .empty-row td { text-align: center; color: var(--muted); padding: 48px; }
 
     /* ── Legend ──────────────────────────────────────────── */
-    .legend {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-      font-size: 0.74rem;
-      color: var(--muted);
-      margin-left: 12px;
-    }
+    .legend { display: flex; gap: 14px; align-items: center; font-size: 0.74rem; color: var(--muted); margin-left: 8px; }
     .legend-item { display: flex; align-items: center; gap: 4px; }
+
+    /* ── Modal overlay ───────────────────────────────────── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.35); z-index: 100;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--surface); border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.18);
+      width: 560px; max-width: 95vw; max-height: 90vh;
+      overflow-y: auto; padding: 28px;
+    }
+    .modal-title {
+      font-size: 1rem; font-weight: 700; margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .modal-close {
+      background: none; border: none; cursor: pointer; font-size: 1.2rem;
+      color: var(--muted); line-height: 1; padding: 2px 6px;
+    }
+    .modal-close:hover { color: var(--text); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 4px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { font-size: 0.75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
+    .form-group input, .form-group textarea {
+      border: 1px solid var(--border2); border-radius: 6px;
+      padding: 7px 10px; font-size: 0.85rem; outline: none;
+      font-family: inherit; color: var(--text);
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+    .form-group textarea { resize: vertical; min-height: 56px; }
+
+    .modal-actions {
+      margin-top: 20px; display: flex; gap: 8px; justify-content: flex-end;
+    }
+    .btn-cancel {
+      background: var(--bg); border: 1px solid var(--border2); color: var(--muted);
+      padding: 7px 18px; border-radius: 6px; cursor: pointer; font-size: 0.85rem;
+    }
+    .btn-save {
+      background: var(--accent); color: #fff; border: none;
+      padding: 7px 20px; border-radius: 6px; cursor: pointer;
+      font-size: 0.85rem; font-weight: 600;
+    }
+    .btn-save:hover { opacity: .88; }
+
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 200;
+      background: #1a1d23; color: #fff; border-radius: 8px;
+      padding: 10px 18px; font-size: 0.82rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,.25);
+      opacity: 0; transform: translateY(8px);
+      transition: opacity .2s, transform .2s;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.76rem; }
   </style>
 </head>
 <body>
 
 <header>
   <span style="font-size:1.4rem">🔬</span>
-  <div>
-    <h1>Oncology Conference Tracker
-      <span class="sub">ASCO · ESMO · AACR · WCLC · USCAP · CAP · SITC</span>
-    </h1>
-  </div>
+  <h1>Oncology Conference Tracker
+    <span class="sub">ASCO · ESMO · AACR · WCLC · USCAP · CAP · SITC</span>
+  </h1>
 </header>
 
 <div class="toolbar">
@@ -252,14 +237,15 @@
   <button class="btn-filter" data-filter="year">This year</button>
 
   <div class="legend">
-    <span class="legend-item"><span class="badge red" style="margin:0">●</span> ≤30d</span>
+    <span class="legend-item"><span class="badge red"  style="margin:0">●</span> ≤30d</span>
     <span class="legend-item"><span class="badge yellow" style="margin:0">●</span> 31–90d</span>
-    <span class="legend-item"><span class="badge green" style="margin:0">●</span> 91–180d</span>
-    <span class="legend-item"><span class="badge grey" style="margin:0">●</span> 180+d</span>
+    <span class="legend-item"><span class="badge green"  style="margin:0">●</span> 91–180d</span>
+    <span class="legend-item"><span class="badge grey"   style="margin:0">●</span> 180+d</span>
   </div>
 
   <div class="spacer"></div>
-  <input class="search-box" id="search" type="text" placeholder="🔍  Search conference…" />
+  <input class="search-box" id="search" type="text" placeholder="🔍  Search…" />
+  <button class="btn-add" id="btnAdd">+ Add</button>
 </div>
 
 <div class="table-wrap">
@@ -271,7 +257,7 @@
         <th data-col="late_breaking_deadline">Late-Breaking <span class="sort-icon">↕</span></th>
         <th data-col="date_start">Conference Dates <span class="sort-icon">↕</span></th>
         <th data-col="country">Location <span class="sort-icon">↕</span></th>
-        <th>Links</th>
+        <th style="width:80px"></th>
       </tr>
     </thead>
     <tbody id="tbody"></tbody>
@@ -280,186 +266,343 @@
 
 <footer id="footer">Loading…</footer>
 
+<!-- Edit / Add Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-title">
+      <span id="modal-title-text">Edit Conference</span>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Conference Name *</label>
+        <input id="f-name" placeholder="e.g. ASCO" />
+      </div>
+      <div class="form-group">
+        <label>Year *</label>
+        <input id="f-year" type="number" placeholder="2027" />
+      </div>
+      <div class="form-group">
+        <label>Start Date</label>
+        <input id="f-date_start" type="date" />
+      </div>
+      <div class="form-group">
+        <label>End Date</label>
+        <input id="f-date_end" type="date" />
+      </div>
+      <div class="form-group">
+        <label>Abstract Deadline</label>
+        <input id="f-abstract_deadline" type="date" />
+      </div>
+      <div class="form-group">
+        <label>Late-Breaking Deadline</label>
+        <input id="f-late_breaking_deadline" type="date" />
+      </div>
+      <div class="form-group">
+        <label>Early Reg. Deadline</label>
+        <input id="f-early_registration_deadline" type="date" />
+      </div>
+      <div class="form-group">
+        <label>Reg. Deadline</label>
+        <input id="f-registration_deadline" type="date" />
+      </div>
+      <div class="form-group">
+        <label>Country</label>
+        <input id="f-country" placeholder="South Korea" />
+      </div>
+      <div class="form-group">
+        <label>City</label>
+        <input id="f-city" placeholder="Seoul" />
+      </div>
+      <div class="form-group full">
+        <label>Venue</label>
+        <input id="f-venue" placeholder="COEX Convention & Exhibition Center" />
+      </div>
+      <div class="form-group full">
+        <label>Website URL</label>
+        <input id="f-website_url" type="url" placeholder="https://…" />
+      </div>
+      <div class="form-group full">
+        <label>Notes</label>
+        <textarea id="f-notes" placeholder="Free text notes…"></textarea>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="btnCancel">Cancel</button>
+      <button class="btn-save" id="btnSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-/* ── Helpers ──────────────────────────────────────────────────────────── */
+/* ── Helpers ──────────────────────────────────────────────────────── */
 const today = new Date(); today.setHours(0,0,0,0);
+const API = "/api/conferences";
+const USE_API = window.location.port === "8765" || window.location.hostname !== "";
 
 function daysUntil(ds) {
   if (!ds) return null;
-  const d = new Date(ds + "T00:00:00");
-  d.setHours(0,0,0,0);
+  const d = new Date(ds + "T00:00:00"); d.setHours(0,0,0,0);
   return Math.round((d - today) / 86400000);
 }
-
 function fmtDate(ds) {
   if (!ds) return null;
   const d = new Date(ds + "T00:00:00");
   return d.toLocaleDateString("en-US", { month:"short", day:"numeric", year:"numeric" });
 }
-
-function fmtDateShort(ds) {
+function fmtShort(ds) {
   if (!ds) return null;
-  const d = new Date(ds + "T00:00:00");
-  return d.toLocaleDateString("en-US", { month:"short", day:"numeric" });
+  return new Date(ds + "T00:00:00").toLocaleDateString("en-US", { month:"short", day:"numeric" });
 }
-
-function badgeCls(days) {
-  if (days === null) return "grey";
-  if (days < 0)    return "passed";
-  if (days <= 30)  return "red";
-  if (days <= 90)  return "yellow";
-  if (days <= 180) return "green";
+function badgeCls(d) {
+  if (d === null) return "grey";
+  if (d < 0) return "passed";
+  if (d <= 30) return "red";
+  if (d <= 90) return "yellow";
+  if (d <= 180) return "green";
   return "grey";
 }
-
-function badgeLabel(days) {
-  if (days === null) return "TBD";
-  if (days < 0)     return "Passed";
-  if (days === 0)   return "Today!";
-  return `${days}d`;
+function badgeTxt(d) {
+  if (d === null) return "TBD";
+  if (d < 0) return "Passed";
+  if (d === 0) return "Today!";
+  return `${d}d`;
 }
 
-/* ── Row builder ──────────────────────────────────────────────────────── */
+/* ── Row builder ──────────────────────────────────────────────────── */
 function buildRow(c) {
-  const days   = daysUntil(c.abstract_deadline);
-  const cls    = badgeCls(days);
-  const lbDays = daysUntil(c.late_breaking_deadline);
+  const d   = daysUntil(c.abstract_deadline);
+  const cls = badgeCls(d);
+  const lbd = daysUntil(c.late_breaking_deadline);
 
-  // Abstract deadline cell
-  const dlText = c.abstract_deadline
-    ? `<span class="deadline-date ${cls}">${fmtDate(c.abstract_deadline)}</span>
-       <span class="badge ${cls}">${badgeLabel(days)}</span>`
-    : `<span class="deadline-date tbd">TBD</span>`;
+  const dlCell = c.abstract_deadline
+    ? `<span class="dl-date ${cls}">${fmtDate(c.abstract_deadline)}</span>
+       <span class="badge ${cls}">${badgeTxt(d)}</span>`
+    : `<span class="dl-date tbd">TBD</span>`;
 
-  const lbText = c.late_breaking_deadline
-    ? `<div class="lb-date">⚡ ${fmtDate(c.late_breaking_deadline)}
-        ${lbDays !== null && lbDays >= 0 ? `<span class="badge ${badgeCls(lbDays)}" style="font-size:.68rem">${lbDays}d</span>` : (lbDays < 0 ? "<em>(passed)</em>" : "")}
+  const lbCell = c.late_breaking_deadline
+    ? `<div class="lb-line">⚡ ${fmtDate(c.late_breaking_deadline)}
+       ${lbd !== null && lbd >= 0 ? `<span class="badge ${badgeCls(lbd)}" style="font-size:.68rem">${lbd}d</span>` :
+         (lbd !== null && lbd < 0 ? `<em style="opacity:.6">(passed)</em>` : "")}
        </div>`
     : `<span style="color:var(--muted);font-size:.8rem">—</span>`;
 
-  // Conference dates
-  const confDates = (c.date_start && c.date_end)
+  const dates = (c.date_start && c.date_end)
     ? (c.date_start.slice(0,7) === c.date_end.slice(0,7)
-        ? `${fmtDateShort(c.date_start)}–${fmtDateShort(c.date_end)}, ${c.date_start.slice(0,4)}`
+        ? `${fmtShort(c.date_start)}–${fmtShort(c.date_end)}, ${c.date_start.slice(0,4)}`
         : `${fmtDate(c.date_start)} – ${fmtDate(c.date_end)}`)
-    : (c.date_start ? fmtDate(c.date_start) : "<span style='color:var(--muted)'>TBA</span>");
+    : (c.date_start ? fmtDate(c.date_start) : `<span style='color:var(--muted)'>TBA</span>`);
 
-  // Location
   const loc = `
-    <div class="location-country">${c.country || "—"}</div>
-    ${c.city    ? `<div class="location-city">${c.city}</div>` : ""}
-    ${c.venue   ? `<div class="location-venue">${c.venue}</div>` : ""}`;
+    <div class="loc-country">${c.country||"—"}</div>
+    ${c.city   ? `<div class="loc-city">${c.city}</div>` : ""}
+    ${c.venue  ? `<div class="loc-venue">${c.venue}</div>` : ""}`;
 
-  // Links
-  const links =
-    (c.website_url    ? `<a class="link-btn" href="${c.website_url}"    target="_blank">🌐 Site</a>` : "") +
-    (c.submission_url ? `<a class="link-btn" href="${c.submission_url}" target="_blank">📤 Submit</a>` : "");
+  const site = c.website_url
+    ? `<a class="link-btn" href="${c.website_url}" target="_blank">🌐 Site</a>` : "";
 
-  return `<tr data-name="${c.name}" data-year="${c.year}" data-deadline="${c.abstract_deadline||''}" data-country="${c.country||''}">
+  return `<tr>
     <td><span class="conf-name">${c.name}</span><span class="conf-year">${c.year}</span></td>
-    <td class="deadline-cell">${dlText}</td>
-    <td>${lbText}</td>
-    <td class="date-range">${confDates}</td>
+    <td>${dlCell}</td>
+    <td>${lbCell}</td>
+    <td style="white-space:nowrap">${dates}</td>
     <td>${loc}</td>
-    <td>${links || "—"}</td>
+    <td style="white-space:nowrap">
+      ${site}
+      <button class="btn-edit" data-key="${c.name}|${c.year}">✏️ Edit</button>
+      <button class="btn-del"  data-key="${c.name}|${c.year}">🗑</button>
+    </td>
   </tr>`;
 }
 
-/* ── State ────────────────────────────────────────────────────────────── */
-let allData = [];
-let activeFilter = "all";
-let sortCol = "abstract_deadline";
-let sortAsc = true;
-let query   = "";
+/* ── State ────────────────────────────────────────────────────────── */
+let allData = [], activeFilter = "all", sortCol = "abstract_deadline", sortAsc = true, query = "";
 
 function sortKey(c, col) {
-  const v = c[col] || "";
   if (col === "name") return `${c.name}_${c.year}`;
-  return v || "9999-99-99";
+  return c[col] || "9999-99-99";
 }
 
-function applyAll() {
+function render() {
   const yr = today.getFullYear();
   let data = allData.filter(c => {
     if (query) {
       const q = query.toLowerCase();
-      if (!(c.name||"").toLowerCase().includes(q) &&
-          !(c.city||"").toLowerCase().includes(q) &&
-          !(c.country||"").toLowerCase().includes(q) &&
-          !(c.venue||"").toLowerCase().includes(q)) return false;
+      if (!["name","city","country","venue"].some(k => (c[k]||"").toLowerCase().includes(q))) return false;
     }
-    if (activeFilter === "upcoming") {
-      const d = daysUntil(c.abstract_deadline);
-      return d !== null && d >= 0;
-    }
-    if (activeFilter === "3mo") {
-      const d = daysUntil(c.abstract_deadline);
-      return d !== null && d >= 0 && d <= 90;
-    }
-    if (activeFilter === "year") return c.year === yr;
+    if (activeFilter === "upcoming") { const d = daysUntil(c.abstract_deadline); return d !== null && d >= 0; }
+    if (activeFilter === "3mo")      { const d = daysUntil(c.abstract_deadline); return d !== null && d >= 0 && d <= 90; }
+    if (activeFilter === "year")     return c.year === yr;
     return true;
   });
-
-  data.sort((a, b) => {
-    const ka = sortKey(a, sortCol), kb = sortKey(b, sortCol);
-    return sortAsc ? (ka < kb ? -1 : ka > kb ? 1 : 0)
-                   : (ka > kb ? -1 : ka < kb ? 1 : 0);
+  data.sort((a,b) => {
+    const ka = sortKey(a,sortCol), kb = sortKey(b,sortCol);
+    return sortAsc ? (ka<kb?-1:ka>kb?1:0) : (ka>kb?-1:ka<kb?1:0);
   });
+  const tb = document.getElementById("tbody");
+  tb.innerHTML = data.length
+    ? data.map(buildRow).join("")
+    : `<tr class="empty-row"><td colspan="6">No conferences match this filter.</td></tr>`;
 
-  const tbody = document.getElementById("tbody");
-  if (!data.length) {
-    tbody.innerHTML = `<tr class="empty-row"><td colspan="6">No conferences match this filter.</td></tr>`;
-  } else {
-    tbody.innerHTML = data.map(buildRow).join("");
-  }
-
-  // Update sort icon styling
-  document.querySelectorAll("th").forEach(th => {
+  document.querySelectorAll("th[data-col]").forEach(th => {
     th.classList.toggle("sorted", th.dataset.col === sortCol);
-    const icon = th.querySelector(".sort-icon");
-    if (icon && th.dataset.col === sortCol) icon.textContent = sortAsc ? " ↑" : " ↓";
-    else if (icon) icon.textContent = " ↕";
+    const ic = th.querySelector(".sort-icon");
+    if (ic) ic.textContent = th.dataset.col === sortCol ? (sortAsc?" ↑":" ↓") : " ↕";
   });
 }
 
-/* ── Event listeners ──────────────────────────────────────────────────── */
-document.querySelectorAll(".btn-filter").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".btn-filter").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    activeFilter = btn.dataset.filter;
-    applyAll();
+/* ── Toast ────────────────────────────────────────────────────────── */
+function showToast(msg, ok=true) {
+  const t = document.getElementById("toast");
+  t.textContent = (ok ? "✓ " : "✗ ") + msg;
+  t.style.background = ok ? "#16a34a" : "#dc2626";
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2500);
+}
+
+/* ── Modal ────────────────────────────────────────────────────────── */
+const FIELDS = ["name","year","date_start","date_end","abstract_deadline",
+  "late_breaking_deadline","early_registration_deadline","registration_deadline",
+  "country","city","venue","website_url","notes"];
+
+let editingOriginal = null;   // {name, year} of the record being edited
+
+function openModal(conf = null) {
+  editingOriginal = conf ? { name: conf.name, year: conf.year } : null;
+  document.getElementById("modal-title-text").textContent = conf ? "Edit Conference" : "Add Conference";
+  FIELDS.forEach(f => {
+    const el = document.getElementById("f-" + f);
+    if (!el) return;
+    el.value = (conf && conf[f] != null) ? conf[f] : "";
   });
-});
+  // lock name+year when editing
+  document.getElementById("f-name").readOnly = !!conf;
+  document.getElementById("f-year").readOnly = !!conf;
+  document.getElementById("modal").classList.add("open");
+  document.getElementById(conf ? "f-date_start" : "f-name").focus();
+}
 
-document.querySelectorAll("th[data-col]").forEach(th => {
-  th.addEventListener("click", () => {
-    if (sortCol === th.dataset.col) sortAsc = !sortAsc;
-    else { sortCol = th.dataset.col; sortAsc = true; }
-    applyAll();
+function closeModal() {
+  document.getElementById("modal").classList.remove("open");
+  editingOriginal = null;
+}
+
+async function saveModal() {
+  const name = document.getElementById("f-name").value.trim().toUpperCase();
+  const year = parseInt(document.getElementById("f-year").value);
+  if (!name || !year) { showToast("Name and year are required", false); return; }
+
+  const rec = { last_scraped: null };
+  FIELDS.forEach(f => {
+    const el = document.getElementById("f-" + f);
+    if (!el) return;
+    const v = el.value.trim();
+    if (f === "year") rec[f] = parseInt(v) || year;
+    else if (f === "name") rec[f] = v.toUpperCase();
+    else rec[f] = v || null;
   });
+
+  try {
+    const res = await fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(rec)
+    });
+    if (!res.ok) throw new Error(await res.text());
+    allData = await fetchData();
+    render();
+    closeModal();
+    showToast(`${rec.name} ${rec.year} saved`);
+  } catch(e) {
+    // Fallback: update in memory + download JSON
+    const idx = allData.findIndex(c => c.name === rec.name && c.year === rec.year);
+    if (idx >= 0) allData[idx] = rec; else allData.push(rec);
+    render();
+    closeModal();
+    downloadJson();
+    showToast("Saved locally — replace conferences.json with downloaded file");
+  }
+}
+
+async function deleteConf(name, year) {
+  if (!confirm(`Delete ${name} ${year}?`)) return;
+  try {
+    await fetch(API + "/delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, year })
+    });
+    allData = await fetchData();
+  } catch {
+    allData = allData.filter(c => !(c.name === name && c.year === year));
+    downloadJson();
+  }
+  render();
+  showToast(`${name} ${year} deleted`);
+}
+
+function downloadJson() {
+  const blob = new Blob([JSON.stringify(allData, null, 2)], { type:"application/json" });
+  const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: "conferences.json" });
+  a.click();
+}
+
+/* ── Event wiring ─────────────────────────────────────────────────── */
+document.querySelectorAll(".btn-filter").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".btn-filter").forEach(x => x.classList.remove("active"));
+  b.classList.add("active"); activeFilter = b.dataset.filter; render();
+}));
+document.querySelectorAll("th[data-col]").forEach(th => th.addEventListener("click", () => {
+  if (sortCol === th.dataset.col) sortAsc = !sortAsc; else { sortCol = th.dataset.col; sortAsc = true; }
+  render();
+}));
+document.getElementById("search").addEventListener("input", e => { query = e.target.value.trim(); render(); });
+document.getElementById("btnAdd").addEventListener("click", () => openModal(null));
+document.getElementById("modalClose").addEventListener("click", closeModal);
+document.getElementById("btnCancel").addEventListener("click", closeModal);
+document.getElementById("btnSave").addEventListener("click", saveModal);
+document.getElementById("modal").addEventListener("click", e => { if (e.target === e.currentTarget) closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+document.getElementById("tbody").addEventListener("click", e => {
+  const editBtn = e.target.closest(".btn-edit");
+  const delBtn  = e.target.closest(".btn-del");
+  if (editBtn) {
+    const [name, year] = editBtn.dataset.key.split("|");
+    const conf = allData.find(c => c.name === name && c.year === parseInt(year));
+    if (conf) openModal(conf);
+  }
+  if (delBtn) {
+    const [name, year] = delBtn.dataset.key.split("|");
+    deleteConf(name, parseInt(year));
+  }
 });
 
-document.getElementById("search").addEventListener("input", e => {
-  query = e.target.value.trim();
-  applyAll();
-});
+/* ── Data fetch ───────────────────────────────────────────────────── */
+async function fetchData() {
+  const urls = [API, "../conferences.json", "conferences.json"];
+  for (const url of urls) {
+    try {
+      const r = await fetch(url);
+      if (r.ok) return await r.json();
+    } catch {}
+  }
+  throw new Error("Could not load data");
+}
 
-/* ── Load ─────────────────────────────────────────────────────────────── */
 async function load() {
   const footer = document.getElementById("footer");
   try {
-    const res = await fetch("../conferences.json");
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    allData = await res.json();
-    applyAll();
-
-    const ts = allData.reduce((best, c) => c.last_scraped > best ? c.last_scraped : best, "");
-    footer.textContent = ts
-      ? `Last updated: ${new Date(ts).toLocaleString("en-US", { dateStyle:"medium", timeStyle:"short" })}`
-      : `Data last manually curated · ${allData.length} conferences`;
+    allData = await fetchData();
+    render();
+    const ts = allData.reduce((b, c) => (c.last_scraped||"") > b ? (c.last_scraped||"") : b, "");
+    footer.innerHTML = ts
+      ? `Last updated: ${new Date(ts).toLocaleString("en-US",{dateStyle:"medium",timeStyle:"short"})} &nbsp;·&nbsp; ${allData.length} conferences`
+      : `${allData.length} conferences &nbsp;·&nbsp; manually curated`;
   } catch(e) {
-    footer.textContent = "⚠️  Could not load conferences.json — serve via: python -m http.server 8765";
+    footer.textContent = "⚠️  Run: python server.py  →  open http://localhost:8765";
     console.error(e);
   }
 }
