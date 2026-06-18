@@ -51,6 +51,23 @@
     "last_scraped": null
   },
   {
+    "name": "AACR",
+    "year": 2027,
+    "date_start": "2027-04-02",
+    "date_end": "2027-04-07",
+    "city": "Orlando",
+    "country": "USA",
+    "venue": "Orange County Convention Center",
+    "abstract_deadline": null,
+    "late_breaking_deadline": null,
+    "registration_deadline": null,
+    "early_registration_deadline": null,
+    "website_url": "https://www.aacr.org/meeting/aacr-annual-meeting-2027/",
+    "submission_url": null,
+    "notes": "Abstract deadline TBD — typically announced November.",
+    "last_scraped": null
+  },
+  {
     "name": "ESMO",
     "year": 2026,
     "date_start": "2026-10-23",
