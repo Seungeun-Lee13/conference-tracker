@@ -582,7 +582,7 @@ document.getElementById("tbody").addEventListener("click", e => {
 
 /* ── Data fetch ───────────────────────────────────────────────────── */
 async function fetchData() {
-  const urls = [API, "../conferences.json", "conferences.json"];
+  const urls = [API, "../conferences.json", "/conference-tracker/conferences.json", "conferences.json"];
   for (const url of urls) {
     try {
       const r = await fetch(url);
