@@ -1,19 +1,20 @@
 CREATE TABLE IF NOT EXISTS conferences (
-    id                        INTEGER PRIMARY KEY AUTOINCREMENT,
-    name                      TEXT NOT NULL,
-    year                      INTEGER NOT NULL,
-    date_start                TEXT,          -- ISO 8601 YYYY-MM-DD
-    date_end                  TEXT,
-    city                      TEXT,
-    country                   TEXT,
-    abstract_deadline         TEXT,          -- ISO 8601 YYYY-MM-DD
-    late_breaking_deadline    TEXT,
-    registration_deadline     TEXT,
+    id                          INTEGER PRIMARY KEY AUTOINCREMENT,
+    name                        TEXT NOT NULL,
+    year                        INTEGER NOT NULL,
+    date_start                  TEXT,
+    date_end                    TEXT,
+    city                        TEXT,
+    country                     TEXT,
+    venue                       TEXT,
+    abstract_deadline           TEXT,
+    late_breaking_deadline      TEXT,
+    registration_deadline       TEXT,
     early_registration_deadline TEXT,
-    website_url               TEXT,
-    submission_url            TEXT,
-    notes                     TEXT,
-    last_scraped              TEXT,          -- ISO 8601 datetime
+    website_url                 TEXT,
+    submission_url              TEXT,
+    notes                       TEXT,
+    last_scraped                TEXT,
     UNIQUE(name, year)
 );
 
