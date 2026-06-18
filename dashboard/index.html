@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oncology Conference Tracker</title>
+  <style>
+    /* ── Reset & base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0f1117;
+      --surface:   #1a1d27;
+      --border:    #2a2d3e;
+      --text:      #e2e8f0;
+      --muted:     #8892a4;
+      --accent:    #6c8ebf;
+
+      --red:       #ef4444;
+      --red-bg:    #3f1515;
+      --yellow:    #f59e0b;
+      --yellow-bg: #3b2800;
+      --green:     #22c55e;
+      --green-bg:  #0d2b18;
+      --grey:      #64748b;
+      --grey-bg:   #1e2230;
+
+      --radius:    10px;
+      --gap:       20px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ───────────────────────────────────────────── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    header h1 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    header span.sub {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* ── Controls ─────────────────────────────────────────── */
+    .controls {
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+    }
+    .controls label {
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-right: 4px;
+    }
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      transition: all .15s;
+    }
+    .filter-btn:hover   { border-color: var(--accent); color: var(--text); }
+    .filter-btn.active  { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    .sort-select {
+      margin-left: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    /* ── Grid ─────────────────────────────────────────────── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--gap);
+      padding: 24px 32px;
+    }
+
+    /* ── Card ─────────────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color .15s, transform .15s;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+    .card-year { color: var(--muted); font-weight: 400; }
+
+    /* Countdown badge */
+    .badge {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .badge.red    { background: var(--red-bg);    color: var(--red);    }
+    .badge.yellow { background: var(--yellow-bg); color: var(--yellow); }
+    .badge.green  { background: var(--green-bg);  color: var(--green);  }
+    .badge.grey   { background: var(--grey-bg);   color: var(--grey);   }
+
+    /* Meta rows */
+    .meta { display: flex; flex-direction: column; gap: 6px; }
+    .meta-row {
+      display: flex;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.83rem;
+    }
+    .meta-row .icon { flex-shrink: 0; width: 16px; }
+    .meta-row .val  { color: var(--text); }
+    .meta-row .val.deadline-red    { color: var(--red); font-weight: 600; }
+    .meta-row .val.deadline-yellow { color: var(--yellow); font-weight: 600; }
+    .meta-row .val.deadline-green  { color: var(--green); }
+
+    /* Links */
+    .links {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+    .link-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--accent);
+      padding: 5px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: background .15s;
+    }
+    .link-btn:hover { background: var(--border); }
+
+    /* Notes */
+    .notes {
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+
+    /* ── Empty state ──────────────────────────────────────── */
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--muted);
+      padding: 60px 0;
+      font-size: 0.95rem;
+    }
+
+    /* ── Footer ───────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>🔬 Oncology Conference Tracker</h1>
+    <span class="sub">ASCO · ESMO · AACR · CAP · USCAP · SITC · IASLC</span>
+  </div>
+</header>
+
+<div class="controls">
+  <label>Filter:</label>
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="3mo">Deadline &lt;3 mo</button>
+  <button class="filter-btn" data-filter="year">This year</button>
+
+  <select class="sort-select" id="sortSelect">
+    <option value="abstract_deadline">Sort: Abstract Deadline ↑</option>
+    <option value="date_start">Sort: Conference Date ↑</option>
+    <option value="name">Sort: Name A–Z</option>
+  </select>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer id="footer">Loading…</footer>
+
+<script>
+/* ── Utilities ─────────────────────────────────────────────────────────── */
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+function daysUntil(dateStr) {
+  if (!dateStr) return null;
+  const d = new Date(dateStr);
+  d.setHours(0, 0, 0, 0);
+  return Math.round((d - today) / 86400000);
+}
+
+function fmtDate(dateStr) {
+  if (!dateStr) return null;
+  const d = new Date(dateStr + "T00:00:00");
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
+function badgeClass(days) {
+  if (days === null) return "grey";
+  if (days <= 30)  return "red";
+  if (days <= 90)  return "yellow";
+  if (days <= 180) return "green";
+  return "grey";
+}
+
+function deadlineClass(days) {
+  if (days === null) return "";
+  if (days <= 30)  return "deadline-red";
+  if (days <= 90)  return "deadline-yellow";
+  if (days <= 180) return "deadline-green";
+  return "";
+}
+
+/* ── Card builder ──────────────────────────────────────────────────────── */
+function buildCard(conf) {
+  const days  = daysUntil(conf.abstract_deadline);
+  const cls   = badgeClass(days);
+  const dCls  = deadlineClass(days);
+
+  const badgeLabel =
+    days === null  ? "No deadline set" :
+    days < 0       ? "Deadline passed" :
+    days === 0     ? "Due today!" :
+                     `${days}d remaining`;
+
+  const confDates = (conf.date_start && conf.date_end)
+    ? `${fmtDate(conf.date_start)} – ${fmtDate(conf.date_end)}`
+    : (conf.date_start ? fmtDate(conf.date_start) : "TBA");
+
+  const loc = [conf.city, conf.country].filter(Boolean).join(", ") || "TBA";
+
+  const abstractRow = conf.abstract_deadline
+    ? `<div class="meta-row">
+         <span class="icon">✏️</span>
+         <span>Abstract deadline:&nbsp;</span>
+         <span class="val ${dCls}">${fmtDate(conf.abstract_deadline)}${days !== null ? ` (${days < 0 ? "passed" : days+"d"})` : ""}</span>
+       </div>`
+    : `<div class="meta-row"><span class="icon">✏️</span><span class="val">Abstract deadline: TBA</span></div>`;
+
+  const lbRow = conf.late_breaking_deadline
+    ? `<div class="meta-row">
+         <span class="icon">⚡</span>
+         <span>Late-breaking:&nbsp;</span>
+         <span class="val">${fmtDate(conf.late_breaking_deadline)}</span>
+       </div>`
+    : "";
+
+  const websiteLink = conf.website_url
+    ? `<a class="link-btn" href="${conf.website_url}" target="_blank" rel="noopener">🌐 Website</a>`
+    : "";
+  const submitLink = conf.submission_url
+    ? `<a class="link-btn" href="${conf.submission_url}" target="_blank" rel="noopener">📤 Submit</a>`
+    : "";
+
+  const notesRow = conf.notes
+    ? `<div class="notes">${conf.notes}</div>`
+    : "";
+
+  return `
+  <div class="card" data-name="${conf.name}" data-year="${conf.year}">
+    <div class="card-header">
+      <div class="card-title">${conf.name} <span class="card-year">${conf.year}</span></div>
+      <span class="badge ${cls}">${badgeLabel}</span>
+    </div>
+    <div class="meta">
+      <div class="meta-row">
+        <span class="icon">📍</span>
+        <span class="val">${loc}</span>
+      </div>
+      <div class="meta-row">
+        <span class="icon">📅</span>
+        <span class="val">${confDates}</span>
+      </div>
+      ${abstractRow}
+      ${lbRow}
+    </div>
+    <div class="links">${websiteLink}${submitLink}</div>
+    ${notesRow}
+  </div>`;
+}
+
+/* ── Filter / sort logic ───────────────────────────────────────────────── */
+let allData = [];
+let activeFilter = "all";
+
+function applyFilterSort() {
+  const sort = document.getElementById("sortSelect").value;
+  const year = today.getFullYear();
+
+  let data = allData.slice();
+
+  if (activeFilter === "3mo") {
+    data = data.filter(c => {
+      const d = daysUntil(c.abstract_deadline);
+      return d !== null && d >= 0 && d <= 90;
+    });
+  } else if (activeFilter === "year") {
+    data = data.filter(c => c.year === year);
+  }
+
+  data.sort((a, b) => {
+    if (sort === "abstract_deadline") {
+      const da = a.abstract_deadline || "9999";
+      const db = b.abstract_deadline || "9999";
+      return da < db ? -1 : da > db ? 1 : 0;
+    } else if (sort === "date_start") {
+      const da = a.date_start || "9999";
+      const db = b.date_start || "9999";
+      return da < db ? -1 : da > db ? 1 : 0;
+    } else {
+      return a.name.localeCompare(b.name);
+    }
+  });
+
+  const grid = document.getElementById("grid");
+  if (data.length === 0) {
+    grid.innerHTML = `<div class="empty">No conferences match this filter.</div>`;
+  } else {
+    grid.innerHTML = data.map(buildCard).join("");
+  }
+}
+
+/* ── Event listeners ───────────────────────────────────────────────────── */
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeFilter = btn.dataset.filter;
+    applyFilterSort();
+  });
+});
+
+document.getElementById("sortSelect").addEventListener("change", applyFilterSort);
+
+/* ── Data load ─────────────────────────────────────────────────────────── */
+async function loadData() {
+  const footer = document.getElementById("footer");
+  try {
+    const res  = await fetch("../conferences.json");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    allData = await res.json();
+    applyFilterSort();
+
+    const ts = allData.reduce((latest, c) => {
+      return c.last_scraped && c.last_scraped > latest ? c.last_scraped : latest;
+    }, "");
+    footer.textContent = ts
+      ? `Last updated: ${new Date(ts).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}`
+      : "Last updated: manually curated";
+  } catch (err) {
+    footer.textContent = "Could not load conferences.json — open this file via a local server.";
+    console.error(err);
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>

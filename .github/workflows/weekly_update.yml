@@ -1,0 +1,48 @@
+name: Weekly Conference Update
+
+on:
+  schedule:
+    # 09:00 KST = 00:00 UTC (KST is UTC+9)
+    - cron: "0 0 * * MON"
+  workflow_dispatch:    # allow manual trigger from GitHub UI
+
+permissions:
+  contents: write       # needed to commit conferences.json back
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scrapers & export JSON
+        run: python run_scrapers.py
+
+      - name: Send Slack notifications
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: python slack_notify.py
+        # Don't fail the whole workflow if Slack fails
+        continue-on-error: true
+
+      - name: Commit updated conferences.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add conferences.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: weekly conference data update [skip ci]"
+            git push
+          fi
